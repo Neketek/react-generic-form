@@ -2,9 +2,13 @@
 all:
 
 
+.PHONY: dbuild
+dbuild:
+	docker build -f dev.Dockerfile -t react-generic-form:dev .
+
 .PHONY: drun
 drun:
-	echo "START"
+	docker run -it -v ${PWD}:/react-generic-form react-generic-form:dev sh
 
 
 .PHONY: dstop

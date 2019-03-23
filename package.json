@@ -1,0 +1,15 @@
+{
+  "name": "react-generic-form",
+  "version": "1.0.0",
+  "description": "Small organizational utility for creation of generic react forms",
+  "main": "index.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "form"
+  ],
+  "author": "Neketek",
+  "license": "MIT"
+}

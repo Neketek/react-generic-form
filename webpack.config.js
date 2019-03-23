@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = (env={}) => {
@@ -13,7 +12,7 @@ module.exports = (env={}) => {
 
   const mode = dev?'development':'production';
 
-  const devtool = dev?"eval-source-map":true;
+  const devtool = dev?"eval-source-map":false;
 
   const entry = {
     main:"./src/index"

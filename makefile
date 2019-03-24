@@ -22,4 +22,5 @@ sshtest:
 	docker exec -it react-generic-form-test sh -c "cd /app; sh"
 
 .PHONY: sshpackage
-	docker exec -it react-generic-form sh -c "cd /react-generic-form; sh"
+sshpackage:
+	docker exec -it react-generic-form-package sh -c "cd /package; sh"

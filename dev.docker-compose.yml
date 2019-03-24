@@ -8,8 +8,8 @@ services:
       dockerfile: dev.Dockerfile
       context: ./package
     volumes:
-      - "./package/src:/app/src"
-      - "./package/build:/app/dist"
+      - "./package/src:/package/src"
+      - "./package/dist:/package/dist"
       - "./package/package.json:/app/package.json"
       - "./package/webpack.config.js:/app/webpack.config.js"
 

@@ -12,8 +12,6 @@ COPY . /app/
 
 RUN npm install -g npm-check-updates
 
-EXPOSE 3000
-
-VOLUME ["/app", "/package"]
+VOLUME ["/app", "/react-generic-form"]
 
 CMD ["npm", "run", "dev-server-build"]

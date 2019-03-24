@@ -1,0 +1,29 @@
+version: "3.2"
+
+services:
+  react-generic-form:
+    image: react-generic-form:package
+    container_name: react-generic-form-package
+    build:
+      dockerfile: dev.Dockerfile
+      context: ./package
+    volumes:
+      "./package:/react-generic-form"
+
+  react-generic-form-test:
+    image: react-generic-form:test
+    container_name: react-generic-form-test
+    build:
+      dockerfile: dev.Dockerfile
+      context: ./test
+    ports:
+      - "80:80"
+    depends_on:
+      - react-generic-form
+    volumes:
+      - "./package:/react-generic-form"
+      - "./test/src:/app/src"
+      - "./test/entry:/app/entry"
+      - "./test/build:/app/build"
+      - "./test/package.json:/app/package.json"
+      - "./test/webpack.config.js:/app/webpack.config.js"

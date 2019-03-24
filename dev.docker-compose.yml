@@ -18,15 +18,15 @@ services:
     container_name: react-generic-form-test
     build:
       dockerfile: dev.Dockerfile
-      context: ./test
+      context: ./app
     ports:
       - "80:80"
     depends_on:
       - react-generic-form
     volumes:
       - "./package:/react-generic-form"
-      - "./test/src:/app/src"
-      - "./test/entry:/app/entry"
-      - "./test/build:/app/build"
-      - "./test/package.json:/app/package.json"
-      - "./test/webpack.config.js:/app/webpack.config.js"
+      - "./app/src:/app/src"
+      - "./app/entry:/app/entry"
+      - "./app/build:/app/build"
+      - "./app/package.json:/app/package.json"
+      - "./app/webpack.config.js:/app/webpack.config.js"

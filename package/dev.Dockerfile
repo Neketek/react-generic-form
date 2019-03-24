@@ -1,7 +1,15 @@
 FROM node:8.15-alpine
 
-WORKDIR /react-generic-form
+WORKDIR /package
 
-COPY . /react-generic-form
+COPY package.json /package/package.json
+COPY package-lock.json /package/package-lock.json
 
-VOLUME ["/react-generic-form"]
+ENV NODE_ENV "development"
+RUN npm --production=false install
+
+COPY . /package/
+
+VOLUME ["/package"]
+
+CMD ["npm", "run", "build"]

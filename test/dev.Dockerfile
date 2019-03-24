@@ -14,6 +14,6 @@ RUN npm install -g npm-check-updates
 
 EXPOSE 3000
 
-VOLUME ["/app"]
+VOLUME ["/app", "/package"]
 
 CMD ["npm", "run", "dev-server-build"]

@@ -8,7 +8,10 @@ services:
       dockerfile: dev.Dockerfile
       context: ./package
     volumes:
-      "./package:/react-generic-form"
+      - "./package/src:/app/src"
+      - "./package/build:/app/dist"
+      - "./package/package.json:/app/package.json"
+      - "./package/webpack.config.js:/app/webpack.config.js"
 
   react-generic-form-test:
     image: react-generic-form:test

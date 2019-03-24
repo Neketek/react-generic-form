@@ -54,6 +54,10 @@ module.exports = (env={}) => {
   const plugins = [];
 
   return {
+    watch:true,
+    watchOptions:{
+      aggregateTimeout:600,
+    },
     entry,
     output,
     resolve,

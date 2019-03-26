@@ -6,7 +6,8 @@ COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 
 ENV NODE_ENV "development"
-RUN npm --production=false install
+# RUN npm --production=false install
+# RUN mv node_modules /node_modules
 
 COPY . /app/
 
@@ -14,4 +15,5 @@ RUN npm install -g npm-check-updates
 
 VOLUME ["/app", "/react-generic-form"]
 
-CMD ["npm", "run", "dev-server-build"]
+# CMD npm run dev-server-build
+CMD npm --production=false install && npm run dev-server-build

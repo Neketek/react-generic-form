@@ -1,3 +1,4 @@
+dist/*.min.js
 node_modules
 .npmignore
 *.Dockerfile

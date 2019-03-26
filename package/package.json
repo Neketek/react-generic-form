@@ -2,7 +2,7 @@
   "name": "react-generic-form",
   "version": "1.0.0",
   "description": "Small organizational utility for creation of generic react forms",
-  "main": "index.jsx",
+  "main": "dist/main.min.js",
   "scripts": {
     "build": "webpack"
   },
@@ -23,7 +23,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
     "react-dom": "^16.8.5",
-    "webpack": "^4.29.6",
+    "webpack": "^4.29.3",
     "webpack-cli": "^3.3.0"
   }
 }

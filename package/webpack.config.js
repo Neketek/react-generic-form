@@ -21,8 +21,11 @@ module.exports = (env={}) => {
   const resolve = {
     extensions:[".js", ".jsx"],
     alias:{
-      src:path.resolve(__dirname, 'src')
-    }
+      src:path.resolve(__dirname, 'src'),
+    },
+    // modules:[
+    //   "/node_modules"
+    // ]
   };
 
   const output = {

@@ -10,6 +10,8 @@ services:
     volumes:
       - "./package:/package"
       # - "/package/node_modules"
+    stdin_open: true
+    tty: true
 
   react-generic-form-test:
     image: react-generic-form:test

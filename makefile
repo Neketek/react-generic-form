@@ -2,8 +2,8 @@
 all:
 
 .PHONY: dcrun
-dcrun: dcstop rmlocalmodules
-	docker-compose -f dev.docker-compose.yml up -d
+dcrun: dcstop
+	docker-compose -f dev.docker-compose.yml up
 	docker container ls
 
 .PHONY: dcrestart
@@ -29,3 +29,8 @@ sshpackage:
 rmlocalmodules:
 	sudo rm -rf app/node_modules
 	sudo rm -rf package/node_modules
+
+.PHONY: rmpackagelocks
+rmpackagelocks:
+	sudo rm -f app/package-lock.json
+	sudo rm -f package/package-lock.json 

@@ -30,8 +30,18 @@ module.exports = (env={}) => {
 
   const output = {
     filename:'[name].min.js',
-    path:APP_BUNDLE_PATH
+    path:APP_BUNDLE_PATH,
+    library:"reactGenericForm",
+    libraryTarget:"umd",
+    umdNamedDefine:true
   };
+
+
+  const externals = {
+    react:'react',
+    lodash:'lodash',
+    'prop-types':'prop-types'
+  }
 
 
   const module = {
@@ -63,6 +73,7 @@ module.exports = (env={}) => {
     },
     entry,
     output,
+    externals,
     resolve,
     mode,
     module,

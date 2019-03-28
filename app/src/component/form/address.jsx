@@ -1,4 +1,5 @@
-import Base from "src/common/base/form";
+const Base = require("react-generic-form");
+console.log({Base});
 import Rule from "src/common/base/form-rule";
 import Text from "src/component/input/text";
 import React from "react";

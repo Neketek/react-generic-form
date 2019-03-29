@@ -13,6 +13,7 @@ const Container = styled.div`
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `
 
 class Profile extends Base{

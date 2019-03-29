@@ -8,6 +8,7 @@ import FormFieldErrors from "./form-field-errors";
 const Container = styled.div`
   display: flex;
   flex-flow: row wrap;
+  width: 100%;
 `;
 
 const FieldWrapper = styled.div`

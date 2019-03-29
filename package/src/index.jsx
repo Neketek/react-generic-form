@@ -1,6 +1,4 @@
-// import Component from "./component";
-// import Rule from "./form-rule";
-// import Input from "./input";
-// import Form from  "./form";
-
 export {default as Component} from "./component";
+export {default as Form} from "./form";
+export {default as Input} from "./input";
+export {default as Rule} from "./form-rule";

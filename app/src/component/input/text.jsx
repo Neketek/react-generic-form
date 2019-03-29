@@ -1,5 +1,5 @@
 import React from "react";
-import Base from "src/common/base/input";
+import {Input as Base} from "react-generic-form";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 

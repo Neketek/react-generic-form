@@ -1,13 +1,11 @@
 import React from "react";
 import styled, {ThemeProvider} from "styled-components";
 import {Provider} from "react-redux";
-import {Component} from "react-generic-form";
-console.log({Component});
-// import Text from "src/component/input/text";
-// import Login from "src/component/form/login";
-// import Name from "src/component/form/name";
-// import Profile from "src/component/form/profile";
-// import Select from "src/component/input/select";
+import Text from "src/component/input/text";
+import Login from "src/component/form/login";
+import Name from "src/component/form/name";
+import Profile from "src/component/form/profile";
+import Select from "src/component/input/select";
 import theme from "src/common/theme/default";
 
 
@@ -35,9 +33,9 @@ class Root extends React.Component{
     return (
       <ThemeProvider theme={theme}>
         <Container>
-          {/* <FormContainer>
+          <FormContainer>
             <Profile/>
-          </FormContainer> */}
+          </FormContainer>
         </Container>
       </ThemeProvider>
     )

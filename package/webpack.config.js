@@ -38,8 +38,8 @@ module.exports = (env={}) => {
 
 
   const externals = {
+    // lodash:'lodash',
     react:'react',
-    lodash:'lodash',
     'prop-types':'prop-types'
   }
 

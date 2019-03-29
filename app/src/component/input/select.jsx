@@ -1,4 +1,4 @@
-import Base from "src/common/base/input";
+import {Input as Base} from "react-generic-form";
 import React from "react";
 import PropTypes from "prop-types";
 

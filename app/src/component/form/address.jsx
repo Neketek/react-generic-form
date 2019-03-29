@@ -1,4 +1,5 @@
-import {Form as Base, Rule} from "react-generic-form";
+import {Form as Base} from "react-generic-form";
+import Rule from "./rule";
 import Text from "src/component/input/text";
 import React from "react";
 import styled from "styled-components";
@@ -76,13 +77,14 @@ class Address extends Base{
 Address.updateDefaultProps({
   rule:{
     country:[
-      Rule.string.not.empty(props=>"You must provide country!")
+      Rule.string.not.empty(({props})=>"You must provide country!"),
+      Rule.string.len.min(({params:{size}})=>`Country should be longer than or equal to ${size} chars`).params({size:2})
     ],
     city:[
-      Rule.string.not.empty(props=>"You must provide city!")
+      Rule.string.not.empty(({props})=>"You must provide city!")
     ],
     street:[
-      Rule.string.not.empty(props=>"You must provide street address!")
+      Rule.string.not.empty(({props})=>"You must provide street address!")
     ]
   }
 });

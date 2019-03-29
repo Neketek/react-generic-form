@@ -1,4 +1,5 @@
-import {Form as Base, Rule} from "react-generic-form";
+import {Form as Base} from "react-generic-form";
+import Rule from "./rule";
 import Text from "src/component/input/text";
 import React from "react";
 import styled from "styled-components";
@@ -27,7 +28,7 @@ Login.updateDefaultProps({
     ],
     password:[
       Rule.string.not.empty(props=>"Password should not be empty"),
-      Rule.string.len.min(props=>"Password should not be less than 6 chars")(6)
+      Rule.string.len.min(({params:{size}})=>`Password should be longer or equal ${size} chars`).params({size:10})
     ]
   }
 })

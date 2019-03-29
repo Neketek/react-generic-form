@@ -1,4 +1,5 @@
-import {Form as Base, Rule} from "react-generic-form";
+import {Form as Base} from "react-generic-form";
+import Rule from "./rule";
 import Text from "src/component/input/text";
 import React from "react";
 import styled from "styled-components";
@@ -79,10 +80,10 @@ Name.updateDefaultProps({
   },
   rule:{
     first:[
-      Rule.string.not.empty(props=>"First name should not be empty.")
+      Rule.string.not.empty(()=>"First name should not be empty.")
     ],
     last:[
-      Rule.string.not.empty(props=>"Last name should not be empty.")
+      Rule.string.not.empty(()=>"Last name should not be empty.")
     ]
   }
 });

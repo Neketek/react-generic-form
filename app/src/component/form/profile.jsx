@@ -1,4 +1,5 @@
-import {Form as Base, Rule} from "react-generic-form";
+import {Form as Base} from "react-generic-form";
+import Rule from "./rule";
 import Text from "src/component/input/text";
 import Select from "src/component/input/select";
 import React from "react";

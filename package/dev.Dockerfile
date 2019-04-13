@@ -2,16 +2,12 @@ FROM node:8.15-alpine
 
 WORKDIR /package
 
-COPY package.json /package/package.json
-# COPY package-lock.json /package/package-lock.json
+COPY package*.json ./
+COPY provision/dev provision/dev
+RUN sh provision/dev/install.sh
 
-ENV NODE_ENV "development"
-# RUN npm --production=false install
-# RUN mv node_modules /node_modules
-
-COPY . /package/
+COPY . ./
 
 VOLUME ["/package"]
 
-# CMD npm run build
-CMD npm --production=false install && npm run build
+CMD sh provision/dev/startup.sh

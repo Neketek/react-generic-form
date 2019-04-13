@@ -24,17 +24,3 @@ sshapp:
 .PHONY: sshpackage
 sshpackage:
 	docker exec -it react-generic-form-package sh -c "cd /package; sh"
-
-.PHONY: clean
-clean: rmpackagelocks rmlocalmodules
-	echo "Removing container created volume files"
-
-.PHONY: rmlocalmodules
-rmlocalmodules:
-	sudo rm -rf app/node_modules
-	sudo rm -rf package/node_modules
-
-.PHONY: rmpackagelocks
-rmpackagelocks:
-	sudo rm -f app/package-lock.json
-	sudo rm -f package/package-lock.json

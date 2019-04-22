@@ -2,7 +2,7 @@ import {Input as Base} from "react-generic-form";
 import React from "react";
 import PropTypes from "prop-types";
 
-const renderOptions=options=>{
+const Options=options=>{
   return options.map(e=><option key={e.label} value={e.value}>{e.label}</option>)
 }
 
@@ -12,12 +12,12 @@ class Select extends Base{
     super(props);
   }
 
-  valueFromEvent(e){
+  onChange(e){
     const {target:{value}} = e;
     try{
-      return JSON.parse(value);
+      super.onChange(JSON.parse(value));
     }catch(e){
-      return value;
+      super.onChange(value);
     }
   }
 
@@ -34,7 +34,7 @@ class Select extends Base{
     } = this;
     return (
       <select {...rest} onChange={onChange} onBlur={onBlur} onFocus={onFocus}>
-        {renderOptions(options)}
+        {Options(options)}
       </select>
     );
   }

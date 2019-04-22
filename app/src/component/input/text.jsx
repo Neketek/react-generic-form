@@ -81,7 +81,9 @@ class Text extends Base{
     super(props);
   }
 
-  valueFromEvent(e){return e.target.value;}
+  onChange(e){
+    super.onChange(e.target.value);
+  }
 
   render(){
     const {

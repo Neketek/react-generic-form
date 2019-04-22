@@ -16,11 +16,3 @@ dcstop:
 .PHONY: dcbuild
 dcbuild:
 	docker-compose -f dev.docker-compose.yml build
-
-.PHONY: sshapp
-sshapp:
-	docker exec -it react-generic-form-test sh -c "cd /app; sh"
-
-.PHONY: sshpackage
-sshpackage:
-	docker exec -it react-generic-form-package sh -c "cd /package; sh"

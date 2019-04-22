@@ -7,9 +7,9 @@ class BaseInput extends Component{
 
   constructor(props){
     super(props);
-    this.onChange=this.constructor.prototype.onChange.bind(this);
-    this.onFocus=this.constructor.prototype.onFocus.bind(this);
-    this.onBlur=this.constructor.prototype.onBlur.bind(this);
+    this.onChange=this.onChange.bind(this);
+    this.onFocus=this.onFocus.bind(this);
+    this.onBlur=this.onBlur.bind(this);
   }
 
   onChange(value){

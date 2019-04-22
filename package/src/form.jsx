@@ -44,30 +44,14 @@ class BaseForm extends Component{
     this.nestedRefs={}; // to call validation methods of nested forms
     this.state = State(props);
 
-    this.onFieldChange=e=>{
-      const state = _.cloneDeep(this.state);
-      this.updateStateByFieldEvent({state,e});
-      this.updateAndPropagate(state);
-    }
+    this.onFieldChange=this.onFieldChange.bind(this);
+    this.onFieldFocusChange=this.onFieldFocusChange.bind(this);
+    this.onFormChange=this.onFormChange.bind(this);
 
-    this.onFieldFocusChange=e=>{
-      const state = _.cloneDeep(this.state);
-      this.updateStateByFieldFocusEvent({state,e});
-      this.updateAndPropagate(state);
-    }
-
-    this.onFormChange=e=>{
-      const state = _.cloneDeep(this.state);
-      this.updateStateByFormEvent({state,e});
-      this.updateAndPropagate(state);
-    }
-
-    this.Form=props=>this.FormWrapper(props);
-
-    this.Field=props=>this.FieldWrapper(props);
-
-    this.Errors=props=>this.ErrorsWrapper(props);
-
+    this.Form=this.FormWrapper.bind(this);
+    this.Field=this.FieldWrapper.bind(this);
+    this.Errors=this.ErrorsWrapper.bind(this);
+    
   }
 
   componentDidMount(){
@@ -77,6 +61,39 @@ class BaseForm extends Component{
     }
     const state = this.validate();
     this.updateAndPropagate(state);
+  }
+
+  onFormChange(e){
+    const state = _.cloneDeep(this.state);
+    this.updateStateByFormEvent({state,e});
+    this.updateAndPropagate(state);
+  }
+
+  onFieldChange(e){
+    const state = _.cloneDeep(this.state);
+    this.updateStateByFieldEvent({state,e});
+    this.updateAndPropagate(state);
+  }
+
+  onFieldFocusChange(e){
+    const state = _.cloneDeep(this.state);
+    this.updateStateByFieldFocusEvent({state,e});
+    this.updateAndPropagate(state);
+  }
+
+  FormWrapper(props){
+    const {children:form} = props;
+    return cloneElement(form, this.formProps(form.props.name));
+  }
+
+  FieldWrapper(props){
+    const {children:field} = props;
+    return cloneElement(field, this.fieldProps(field.props.name));
+  }
+
+  ErrorsWrapper(props){
+    const {children:error} = props;
+    return cloneElement(error, this.errorsProps(error.props.name));
   }
 
   static getDerivedStateFromProps(props, state){
@@ -154,23 +171,6 @@ class BaseForm extends Component{
       }
     } = this;
     return {visited, focus, error};
-  }
-
-  FormWrapper(props){
-    const {children:form} = props;
-    return cloneElement(form, this.formProps(form.props.name));
-  }
-
-  FieldWrapper(props){
-    const {children:field} = props;
-    return cloneElement(field, this.fieldProps(field.props.name));
-  }
-
-
-
-  ErrorsWrapper(props){
-    const {children:error} = props;
-    return cloneElement(error, this.errorsProps(error.props.name));
   }
 
   updateAndPropagate(state){

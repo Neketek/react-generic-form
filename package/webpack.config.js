@@ -22,10 +22,7 @@ module.exports = (env={}) => {
     extensions:[".js", ".jsx"],
     alias:{
       src:path.resolve(__dirname, 'src'),
-    },
-    // modules:[
-    //   "/node_modules"
-    // ]
+    }
   };
 
   const output = {

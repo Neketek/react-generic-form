@@ -77,16 +77,18 @@ class Address extends Base{
 
 Address.updateDefaultProps({
   rule:{
-    country:[
-      Rule.string.not.empty(({props})=>"You must provide country!"),
-      Rule.string.len.min(({params:{size}})=>`Country should be longer than or equal to ${size} chars`).params({size:2})
-    ],
-    city:[
-      Rule.string.not.empty(({props})=>"You must provide city!")
-    ],
-    street:[
-      Rule.string.not.empty(({props})=>"You must provide street address!")
-    ]
+    error:{
+      country:[
+        Rule.string.not.empty(({props})=>"You must provide country!"),
+        Rule.string.len.min(({params:{size}})=>`Country should be longer than or equal to ${size} chars`).params({size:2})
+      ],
+      city:[
+        Rule.string.not.empty(({props})=>"You must provide city!")
+      ],
+      street:[
+        Rule.string.not.empty(({props})=>"You must provide street address!")
+      ]
+    }
   }
 });
 

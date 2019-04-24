@@ -79,12 +79,22 @@ Name.updateDefaultProps({
     last:"",
   },
   rule:{
-    first:[
-      Rule.string.not.empty(()=>"First name should not be empty.")
-    ],
-    last:[
-      Rule.string.not.empty(()=>"Last name should not be empty.")
-    ]
+    error:{
+      first:[
+        Rule.string.not.empty(()=>"First name should not be empty.")
+      ],
+      last:[
+        Rule.string.not.empty(()=>"Last name should not be empty.")
+      ]
+    },
+    warning:{
+      first:[
+        Rule.string.len.min(()=>"Your name probably should be longer than 1 char").params({size:2})
+      ],
+      last:[
+        Rule.string.len.min(()=>"Your name probably should be longer than 1 char").params({size:2})
+      ]
+    }
   }
 });
 

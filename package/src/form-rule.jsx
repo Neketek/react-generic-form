@@ -1,9 +1,5 @@
 import _ from "lodash";
 
-/*
-Create reusable form field rule
-*/
-
 
 const createRule=(test)=>{
 

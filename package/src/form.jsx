@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 
 
+const FORM = Symbol("FORM");
+
+
 // Form even builder
 const FormEvent=src=>{
   const {name, value, error, warning, focus, visited} = _.cloneDeep(src);
@@ -12,7 +15,7 @@ const FormEvent=src=>{
 // Form props->state builder
 const State=props=>{
   const {name, value={}, error={}, focus={}, visited={}, warning={}} = props;
-  return {
+  const state = {
     name,
     value:_.cloneDeep(value),
     error:_.cloneDeep(error),
@@ -20,21 +23,24 @@ const State=props=>{
     focus:_.cloneDeep(focus),
     visited:_.cloneDeep(visited),
   }
+  state.warning[FORM] = true;
+  state.error[FORM] = true;
+  return state;
 }
 // This is recursive error checker
 const isValid=error=>{
   if(!error){
     return true;
   }
-  if(error instanceof Array){
-    return error.length == 0;
-  }else if(error instanceof Object){
+  if(error[FORM]){
     for(const name in error){
       if(!isValid(error[name])){
         return false;
       }
     }
     return true;
+  }else if(error instanceof Object){
+    return error.length == 0;
   }
   return false;
 }
@@ -193,11 +199,14 @@ class BaseForm extends Component{
   // update state by nested form event
   updateStateByFormEvent({state,e}){
     const {name, error, focus, value, visited, warning} = e;
+
     state.value[name] = value;
     state.focus[name] = focus;
-    state.error[name] = error;
     state.visited[name] = visited;
+
+    state.error[name] = error;
     state.warning[name] = warning;
+
   }
   // update state by standard field event
   updateStateByFieldEvent({state,e}){

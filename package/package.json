@@ -7,16 +7,19 @@
   },
   "version": "0.0.1",
   "description": "Reaact utility for creation of generic react forms",
-  "main": "dist/main.min.js",
-  "scripts": {
-    "build": "webpack"
-  },
   "keywords": [
     "react",
     "form",
     "util"
   ],
   "license": "MIT",
+  "scripts": {
+    "build": "webpack"
+  },
+  "main": "dist/main.min.js",
+  "files": [
+    "/dist"
+  ],
   "dependencies": {
     "lodash": "^4.17.11"
   },

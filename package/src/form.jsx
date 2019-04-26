@@ -248,10 +248,10 @@ class BaseForm extends Component{
 
   // Helper method which checks field errors using avaialble rules
 
-  validateFieldByRules({value, rules, props, state}){
+  validateFieldByRules({name ,value, rules, props, state}){
     const errors = [];
     for(const rule of rules){
-      const error = rule(value, props, state);
+      const error = rule(name, value, props, state);
       if(error){
         errors.push(error);
       }
@@ -263,12 +263,12 @@ class BaseForm extends Component{
 
   validateFieldByErrors({name, value, props, state}){
     const rules = _.get(props.rule.error, name, []);
-    state.error[name] = this.validateFieldByRules({value, rules, props, state});
+    state.error[name] = this.validateFieldByRules({name, value, rules, props, state});
   }
 
   validateFieldByWarnings({name, value, props, state}){
     const rules = _.get(props.rule.warning, name, []);
-    state.warning[name] = this.validateFieldByRules({value, rules, props, state});
+    state.warning[name] = this.validateFieldByRules({name,value, rules, props, state});
   }
 
   validateField({state, value, name}){

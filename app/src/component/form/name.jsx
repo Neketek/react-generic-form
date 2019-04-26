@@ -5,6 +5,7 @@ import React from "react";
 import styled from "styled-components";
 import FormFieldErrors from "./form-field-errors";
 
+// These two are purely visual components, nothing important here
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -25,7 +26,7 @@ class Name extends Base{
   constructor(props){
     super(props);
   }
-
+  // customazing props which this.Field will provide by default
   fieldProps(name){
     const {
       state:{
@@ -41,20 +42,50 @@ class Name extends Base{
       }
     } = this;
     return {
+      // mergin together default fieldProps + prop which changes color of the input
       ...super.fieldProps(name),
       error:error && visited && !focus
     }
   }
 
+  // using this methods you can customize coresponding wrappers
+  // keep in mind that by default they are usually providing
+  // required props, so that's better to just add custom props
+  // instead of complete overriding
+  errorProps(name){
+    return super.errorProps(name);
+  }
+
+  warningProps(name){
+    return super.warningProps(name);
+  }
+
+  formProps(name){
+    return super.formProps(name);
+  }
+
+  // using this method instead of render give an ability to provide
+  // custom arguments to this method. In future
   form(){
-    const {Form, Field, Errors} = this;
+    // these are wrapper components which will provide additional props
+    // to inputs and error components to make them working automatically
+    const {Form, Field, Errors, Warnings} = this;
     return (
       <Container>
         <FieldWrapper>
           <Field>
+            {/*
+              name props is required
+              because wrapper uses it find coresponding field props
+            */}
             <Text name="first" label="First" placeholder="First name"/>
           </Field>
           <Errors>
+            {/*
+              name props is required for any form wrapper component
+              which provides additional props. Name is only key
+              to find coresponding values
+            */}
             <FormFieldErrors name="first"/>
           </Errors>
         </FieldWrapper>
@@ -79,14 +110,23 @@ Name.updateDefaultProps({
     last:"",
   },
   rule:{
+    // Error rules for each field. If test is not passed
+    // they will return message.
+    // good thing about external rules management is that they are not
+    // hardcoded.
     error:{
+      // field rules list must be placed under field name key
+      // Each message builder function can use all params described below
+      // to customize error message. Really usefull for localization
       first:[
-        Rule.string.not.empty(()=>"First name should not be empty.")
+        Rule.string.not.empty(({name, value, params, state, props})=>`${name} name should not be empty.`)
       ],
       last:[
         Rule.string.not.empty(()=>"Last name should not be empty.")
       ]
     },
+    // warnings acts just like errors but don't affect validation
+    // they can be used to provide valuable information
     warning:{
       first:[
         Rule.string.len.min(()=>"Your name probably should be longer than 1 char").params({size:2})

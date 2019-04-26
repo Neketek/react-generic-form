@@ -1,11 +1,22 @@
+// This is a simple demonstration of custom input wrapping
+// which will make them usable by the forms
+// Don't pay too much attention to SCSS components they are
+// purely visual, but they also serve a purpose and require
+// some props to work correctly. This is done to simulate
+// relatively complex situations.
+
 import React from "react";
-import {Input as Base} from "react-generic-form";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+// First things first. Import Input base component
+import {Input as Base} from "react-generic-form";
 
 const getFocusColor=({error, theme:{color:{focus}}})=>error?focus.error:focus.primary;
 const getFontColor=({error, theme:{color:{font}}})=>error?font.error:font.primary;
 
+// Some visual tricks to make example look not so ugly.
+// This component requires two props to work correctly.
+// {error, underline}
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -75,52 +86,89 @@ const Container = styled.div`
   }
 `
 
-
+// Here we go, important part
 class Text extends Base{
+  // Constuctor is required
   constructor(props){
     super(props);
   }
 
+  // overriding predefined handler
+  // base class expects onChange to receive
+  // pure value. Therefore it should be overridden to extract
+  // value from event
+  // 99% you need to override it to wrap your component.
   onChange(e){
+    //parent class handler uses props.onChange to propagate
+    //{name, value} event.
     super.onChange(e.target.value);
   }
 
+  // these handlers can be overridden if needed.
+  // When it may be important? When input is REALLY custom.
+  onBlur(e){
+    //parent class handler uses props.onFocusChange to propagate
+    //{name, focus:false}
+    super.onBlur(e);
+  }
+
+  onFocus(e){
+    //parent class handler uses props.onFocusChange to propagate
+    //{name, focus:true}
+    super.onFocus(e);
+  }
+
+  // Here is the most important part
+  // All props must be redirected to correct places
   render(){
     const {
       props:{
+        //here we filter all unnesessary props
         onFocusChange,
-        label,
-        error,
+        label, // prop not related to input
+        error, // prop not related to input
         underline,
-        ...rest
+        ...rest // should contain value, name props
       },
-      onChange,
-      onFocus,
-      onBlur,
+      onChange, // predefined handler
+      onFocus, // predefined handler
+      onBlur, // predefined handler
     } = this;
     const props = {
       ...rest,
+      // overriding any onChange, onBlur, onFocus
+      // by predefined handlers which
       onFocus,
       onChange,
       onBlur,
     }
     return (
+      // Pass error and underline to container
       <Container error={error} underline={underline}>
+        {/* Pass all required props to actual input */}
         <input {...props}></input>
         <div><div/></div>
+        {/* Pass label to label component */}
         <label>{label}</label>
       </Container>
     )
   }
 }
 
+// Use to update only things which matter
+// but still have coverage of parent class propTypes
+// you still have an ability to replace propTypes completely
 Text.updatePropTypes({
-  value:PropTypes.string.isRequired,
-  label:PropTypes.string.isRequired,
-  placeholder:PropTypes.string.isRequired,
-  underline:PropTypes.number.isRequired
+  value:PropTypes.string.isRequired, // required for any input
+  label:PropTypes.string.isRequired, // required for any input
+  placeholder:PropTypes.string.isRequired, // specific to this input
+  underline:PropTypes.number.isRequired // specific to this input
+  // onChange:(e)=>console.log(e), required for any input
+  // onFocusChange:(e)=>console.log(e) // required for any input
 });
 
+// Use to update default props
+// You still have an ability to replace defaultProps completely
 Text.updateDefaultProps({
   value:"",
   label:"NoLabel",

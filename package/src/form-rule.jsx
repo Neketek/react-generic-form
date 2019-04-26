@@ -13,9 +13,9 @@ const createRule=(test)=>{
       p:params
     };
 
-    const rule = (function (value, props={},state={}){
+    const rule = (function (name, value, props={},state={}){
       const {m:message, p:params={}} = this;
-      return !test({value, params, props, state})?message({value, props, state, params}):null;
+      return !test({name, value, params, props, state})?message({name, value, props, state, params}):null;
     }).bind(context);
 
     const messageSetter = (function(m){

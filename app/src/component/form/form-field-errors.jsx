@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import React from "react";
 
+/*
+This is just a presentational component which use props
+which form.Error wrapper provides
+*/
+
 const Container = styled.ul`
   font-size: 0.5em;
   font-family: ${({theme})=>theme.font.primary};

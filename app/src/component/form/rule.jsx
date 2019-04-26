@@ -1,5 +1,5 @@
 import {createRule} from "react-generic-form";
-
+// You create rule by providing test function
 export default {
   string:{
     not:{

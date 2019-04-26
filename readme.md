@@ -16,3 +16,5 @@ General workflow:
 1. Wrap custom inputs in extensions of BaseInput component.
 2. Create a form using by extending BaseForm component.
 3. Create reusable field validation rules using createRule function.
+
+[Here are some commented examples](https://github.com/Neketek/react-generic-form/tree/master/app/src/component)

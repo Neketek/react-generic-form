@@ -14,7 +14,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "devbuild": "webpack --env.dev"
   },
   "main": "dist/main.min.js",
   "files": [

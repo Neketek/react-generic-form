@@ -108,6 +108,11 @@ class BaseForm extends Component{
     const {children:error} = props;
     return cloneElement(error, this.errorsProps(error.props.name));
   }
+  // Functional wrapper component which adds standard field warning props
+  WarningsWrapper(props){
+    const {children:error} = props;
+    return cloneElement(error, this.errorsProps(error.props.name));
+  }
   // used to make nested form act as simple field
   static getDerivedStateFromProps(props, state){
     if(props.nested){
@@ -144,7 +149,8 @@ class BaseForm extends Component{
       },
       props:{
         special:{
-          showErrors
+          showErrors,
+          showWarnings
         }
       },
       onFormChange:onChange
@@ -165,12 +171,30 @@ class BaseForm extends Component{
       visited:visited[name],
       special:{
         showErrors,
+        showWarnings
       },
       onChange,
     };
   }
   // returns common props required for errors display
   errorsProps(name){
+    const {
+      state:{
+        visited:{
+          [name]:visited
+        },
+        error:{
+          [name]:error
+        },
+        focus:{
+          [name]:focus
+        }
+      }
+    } = this;
+    return {visited, focus, error};
+  }
+  // returns common props required for warnings display
+  warningProps(name){
     const {
       state:{
         visited:{
@@ -221,6 +245,7 @@ class BaseForm extends Component{
     state.visited[name] = true;
     this.validateField({name, state, value:state.value[name]});
   }
+
   // Helper method which checks field errors using avaialble rules
 
   validateFieldByRules({value, rules, props, state}){
@@ -293,8 +318,9 @@ BaseForm.updatePropTypes({
     error:PropTypes.object.isRequired
   }),
   special:PropTypes.shape({
-    showErrors:PropTypes.bool,
-  }),
+    showWarnings:PropTypes.bool.isRequired,
+    showErrors:PropTypes.bool.isRequired
+  }).isRequired,
   onChange:PropTypes.func.isRequired,
 });
 
@@ -310,9 +336,14 @@ BaseForm.updateDefaultProps({
     warning:{}
   },
   special:{
-    showErrors:false
+    showErrors:false,
+    showWarnings:false
   },
   onChange:e=>console.log(e)
 });
+
+BaseForm.symbol = {
+  FORM
+}
 
 export default BaseForm;

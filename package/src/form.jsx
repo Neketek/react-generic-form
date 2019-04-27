@@ -291,6 +291,8 @@ class Form extends Component{
   }
 
   // This is recursive error checker
+  // It may be used check if form is valid, by going through
+  // form.state.errors object
   static isValid(error){
     if(!error){
       return true;
@@ -320,20 +322,33 @@ class Form extends Component{
 }
 
 Form.updatePropTypes({
+  // the most important prop because it allows form to be nested
+  // as complex field
   name:PropTypes.string.isRequired,
+  // contains all form field values
   value:PropTypes.object.isRequired,
+  // contains arrays of field errors and nested forms error object
   error:PropTypes.object.isRequired,
+  // same thing as errors prop but does not affect validity
   warning:PropTypes.object.isRequired,
+  // contains focus state of fiels and nested forms
   focus:PropTypes.object.isRequired,
+  // contains visited state of fiels and nested forms
   visited:PropTypes.object.isRequired,
+  // form field validation rules
   rule:PropTypes.shape({
+    // contains rules in format [fieldName]:[rule()]
+    // note, that it always should be array
     warning:PropTypes.object.isRequired,
     error:PropTypes.object.isRequired
   }),
   special:PropTypes.shape({
+    // just a flag which is also provided to all nested forms
     showWarnings:PropTypes.bool.isRequired,
+    // same thing but for errors
     showErrors:PropTypes.bool.isRequired
   }).isRequired,
+  // form change handler
   onChange:PropTypes.func.isRequired,
 });
 

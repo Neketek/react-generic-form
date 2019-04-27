@@ -5,8 +5,8 @@
     "type": "git",
     "url": "https://github.com/Neketek/react-generic-form"
   },
-  "version": "0.0.1",
-  "description": "Reaact utility for creation of generic react forms",
+  "version": "0.0.3",
+  "description": "React utility for creation of generic forms",
   "keywords": [
     "react",
     "form",
@@ -19,7 +19,8 @@
   },
   "main": "dist/main.min.js",
   "files": [
-    "/dist"
+    "/dist",
+    "readme.md"
   ],
   "dependencies": {
     "lodash": "^4.17.11"

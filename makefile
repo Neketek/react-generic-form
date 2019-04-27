@@ -1,18 +1,26 @@
 .PHONY: all
 all:
 
-.PHONY: dcrun
-dcrun: dcstop
+.PHONY: devrun
+devrun: devstop
 	docker-compose -f dev.docker-compose.yml up
-	docker container ls
 
-.PHONY: dcrestart
-dcrestart: dcstop dcup
-
-.PHONY: dcstop
-dcstop:
+.PHONY: devstop
+devtop:
 	docker-compose -f dev.docker-compose.yml down
 
-.PHONY: dcbuild
-dcbuild:
+.PHONY: devbuild
+devbuild:
 	docker-compose -f dev.docker-compose.yml build
+
+.PHONY: run
+run: stop
+	docker-compose -f prod.docker-compose.yml up
+
+.PHONY: stop
+stop:
+	docker-compose -f prod.docker-compose.yml down
+
+.PHONY: build
+build:
+	docker-compose -f prod.docker-compose.yml build

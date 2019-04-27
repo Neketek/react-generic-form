@@ -1,6 +1,5 @@
 import React from "react";
 import styled, {ThemeProvider} from "styled-components";
-import {Provider} from "react-redux";
 import Text from "src/component/input/text";
 import Name from "src/component/form/name";
 import Profile from "src/component/form/profile";

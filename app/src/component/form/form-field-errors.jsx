@@ -17,7 +17,7 @@ const Container = styled.ul`
 const FormFieldErrors=props=>{
   const {error, visited, focus, show}=props;
   const visible = error && (visited && !focus || show);
-  const errors = show?error.map((v,i)=><li key={i}>{v}</li>):"E";
+  const errors = visible?error.map((v,i)=><li key={i}>{v}</li>):"E";
   return (
     <Container show={visible}>
       {errors}

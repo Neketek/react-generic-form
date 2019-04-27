@@ -23,9 +23,6 @@ const FieldWrapper = styled.div`
 `
 
 class Name extends Base{
-  constructor(props){
-    super(props);
-  }
   // customazing props which this.Field will provide by default
   fieldProps(name){
     const {
@@ -42,7 +39,7 @@ class Name extends Base{
       }
     } = this;
     return {
-      // mergin together default fieldProps + prop which changes color of the input
+      // merging together default fieldProps + prop which changes color of the input
       ...super.fieldProps(name),
       error:error && visited && !focus
     }

@@ -1,3 +1,6 @@
+// Look for explanation of everything what is happening here in
+// src/component/form/name.jsx
+
 import {Form as Base} from "react-generic-form";
 import Rule from "./rule";
 import Text from "src/component/input/text";

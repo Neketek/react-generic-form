@@ -12,7 +12,7 @@ module.exports = (env={}) => {
 
   const mode = dev?'development':'production';
 
-  const devtool = dev?"eval-source-map":false;
+  const devtool = dev?"inline-cheap-module-source-map":false;
 
   const entry = {
     main:"./src/index"

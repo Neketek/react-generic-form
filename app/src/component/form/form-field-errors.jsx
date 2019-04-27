@@ -15,11 +15,11 @@ const Container = styled.ul`
 
 
 const FormFieldErrors=props=>{
-  const {error, visited, focus}=props;
-  const show = error && visited && !focus;
+  const {error, visited, focus, show}=props;
+  const visible = error && (visited && !focus || show);
   const errors = show?error.map((v,i)=><li key={i}>{v}</li>):"E";
   return (
-    <Container show={show}>
+    <Container show={visible}>
       {errors}
     </Container>
   )

@@ -27,26 +27,9 @@ const State=props=>{
   state.error[FORM] = true;
   return state;
 }
-// This is recursive error checker
-const isValid=error=>{
-  if(!error){
-    return true;
-  }
-  if(error[FORM]){
-    for(const name in error){
-      if(!isValid(error[name])){
-        return false;
-      }
-    }
-    return true;
-  }else if(error instanceof Object){
-    return error.length == 0;
-  }
-  return false;
-}
 
 
-class BaseForm extends Component{
+class Form extends Component{
   constructor(props){
     super(props);
     this.nestedRefs={}; // to call validation methods of nested forms
@@ -189,9 +172,14 @@ class BaseForm extends Component{
         focus:{
           [name]:focus
         }
+      },
+      props:{
+        special:{
+          showErrors:show
+        }
       }
     } = this;
-    return {visited, focus, error};
+    return {visited, focus, error, show};
   }
   // returns common props required for warnings display
   warningProps(name){
@@ -206,9 +194,14 @@ class BaseForm extends Component{
         focus:{
           [name]:focus
         }
+      },
+      props:{
+        special:{
+          showWarnings:show
+        }
       }
     } = this;
-    return {visited, focus, error};
+    return {visited, focus, error, show};
   }
   // sends new form state to parent component by onChange callback
   // updates form if it's not nested
@@ -296,6 +289,26 @@ class BaseForm extends Component{
 
     return state;
   }
+
+  // This is recursive error checker
+  static isValid(error){
+    if(!error){
+      return true;
+    }
+    // it checks error object FORM key because it determines form errors objects
+    if(error[FORM]){
+      for(const name in error){
+        if(!isValid(error[name])){
+          return false;
+        }
+      }
+      return true;
+    }else{
+      return error.length == 0;
+    }
+    return false;
+  }
+
   // form render method, just to be able to customize its args
   form(){
     return undefined;
@@ -306,7 +319,7 @@ class BaseForm extends Component{
   }
 }
 
-BaseForm.updatePropTypes({
+Form.updatePropTypes({
   name:PropTypes.string.isRequired,
   value:PropTypes.object.isRequired,
   error:PropTypes.object.isRequired,
@@ -324,7 +337,7 @@ BaseForm.updatePropTypes({
   onChange:PropTypes.func.isRequired,
 });
 
-BaseForm.updateDefaultProps({
+Form.updateDefaultProps({
   name:"default",
   value:{},
   focus:{},
@@ -342,8 +355,8 @@ BaseForm.updateDefaultProps({
   onChange:e=>console.log(e)
 });
 
-BaseForm.symbol = {
+Form.symbol = {
   FORM
 }
 
-export default BaseForm;
+export default Form;

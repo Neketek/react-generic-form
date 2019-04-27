@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Component from "./component";
 
 
-class BaseInput extends Component{
+class Input extends Component{
 
   constructor(props){
     super(props);
@@ -11,7 +11,7 @@ class BaseInput extends Component{
     this.onFocus=this.onFocus.bind(this);
     this.onBlur=this.onBlur.bind(this);
   }
-
+  
   onChange(value){
     const {props:{onChange, name}} = this;
     onChange({name,value});
@@ -33,16 +33,16 @@ class BaseInput extends Component{
 
 }
 
-BaseInput.updatePropTypes({
+Input.updatePropTypes({
   name:PropTypes.string.isRequired,
   value:PropTypes.any.isRequired,
   onChange:PropTypes.func.isRequired,
   onFocusChange:PropTypes.func.isRequired
 });
 
-BaseInput.updateDefaultProps({
+Input.updateDefaultProps({
   onChange:e=>console.log(e),
   onFocusChange:e=>console.log(e)
 });
 
-export default BaseInput;
+export default Input;

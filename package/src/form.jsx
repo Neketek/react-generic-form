@@ -7,33 +7,11 @@ import _ from "lodash";
 const FORM = Symbol("FORM");
 
 
-// Form even builder
-const FormEvent=src=>{
-  const {name, value, error, warning, focus, visited} = _.cloneDeep(src);
-  return {name, value, error, focus, warning, visited};
-}
-// Form props->state builder
-const State=props=>{
-  const {name, value={}, error={}, focus={}, visited={}, warning={}} = props;
-  const state = {
-    name,
-    value:_.cloneDeep(value),
-    error:_.cloneDeep(error),
-    warning:_.cloneDeep(warning),
-    focus:_.cloneDeep(focus),
-    visited:_.cloneDeep(visited),
-  }
-  state.warning[FORM] = true;
-  state.error[FORM] = true;
-  return state;
-}
-
-
 class Form extends Component{
   constructor(props){
     super(props);
     this.nestedRefs={}; // to call validation methods of nested forms
-    this.state = State(props);
+    this.state = this.constructor.State(props);
     // Field change callbacks this binding
     this.onFieldChange=this.onFieldChange.bind(this);
     this.onFieldFocusChange=this.onFieldFocusChange.bind(this);
@@ -45,6 +23,7 @@ class Form extends Component{
     this.Errors=this.ErrorsWrapper.bind(this);
 
   }
+
   // If form is top level form after mount it will validate itself
   // and fire FormEvent
   // othervise it will wait parent form validation call
@@ -99,10 +78,12 @@ class Form extends Component{
   // used to make nested form act as simple field
   static getDerivedStateFromProps(props, state){
     if(props.nested){
-      return State(props);
+      // react devs must really consider learning some basic benefits of OOP
+      return Form.State(props);
     }
     return null;
   }
+
   // creates default field props based on field name
   fieldProps(name){
     const {
@@ -207,7 +188,7 @@ class Form extends Component{
   // updates form if it's not nested
   updateAndPropagate(state){
     const {props:{nested, onChange}} = this;
-    onChange(FormEvent(state));
+    onChange(Form.FormEvent(state));
     if(nested){
       return;
     }
@@ -277,7 +258,7 @@ class Form extends Component{
 
     for(const name in nestedRefs){
       const validatedState = nestedRefs[name].current.validate();
-      this.updateStateByFormEvent({state, e:FormEvent(validatedState)});
+      this.updateStateByFormEvent({state, e:Form.FormEvent(validatedState)});
     }
 
     for(const name in props.rule.error){
@@ -290,6 +271,31 @@ class Form extends Component{
     return state;
   }
 
+  // Form even builder
+  static FormEvent(src){
+    const {name, value, error, warning, focus, visited} = _.cloneDeep(src);
+    return {name, value, error, focus, warning, visited};
+  }
+
+  // Form props->state builder
+  // if you decide to override this method
+  // you also should override getDerivedStateFromProps
+  // say thanks to React devs who decided to use getDerivedStateFromProps
+  // out of the class context therefore this is not pointing to constructor
+  static State(props){
+    const {name, value={}, error={}, focus={}, visited={}, warning={}} = props;
+    const state = {
+      name,
+      value:_.cloneDeep(value),
+      error:_.cloneDeep(error),
+      warning:_.cloneDeep(warning),
+      focus:_.cloneDeep(focus),
+      visited:_.cloneDeep(visited),
+    }
+    state.warning[FORM] = true;
+    state.error[FORM] = true;
+    return state;
+  }
   // This is recursive error checker
   // It may be used check if form is valid, by going through
   // form.state.errors object
@@ -300,7 +306,7 @@ class Form extends Component{
     // it checks error object FORM key because it determines form errors objects
     if(error[FORM]){
       for(const name in error){
-        if(!isValid(error[name])){
+        if(!this.isValid(error[name])){
           return false;
         }
       }

@@ -22,9 +22,64 @@ const FieldWrapper = styled.div`
 const Gap = styled.div`
   flex-basis: 4px;
 `
+const Button = styled.div`
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  user-select:none;
+
+  border: solid 2px;
+  border-color: ${({theme})=>theme.color.font.primary};
+
+  width: 100%;
+  height: 30px;
+
+  font-size: 1em;
+  font-family: ${({theme})=>theme.font.primary};
+  color:${({theme})=>theme.color.background.secondary};
+  background-color: ${({theme})=>theme.color.background.primary};
+
+  transition-duration: .1s;
+  &:hover{
+    background-color: ${({theme})=>theme.color.focus.primary};
+  }
+  &:active{
+    transform: scale(.99);
+  }
+`
+
+function SubmitButton(){
+
+  const {
+    props:{
+      onSubmit
+    },
+    state:{
+      error,
+      value
+    }
+  } = this;
+
+  if(this.constructor.isValid(error)){
+    return (
+      <Button onClick={()=>onSubmit(value)}>Submit</Button>
+    );
+  }
+
+  return null;
+}
+
+
+
 
 class Address extends Base{
 
+  constructor(props){
+    super(props);
+    this.SubmitButton=props.onSubmit?SubmitButton.bind(this):()=>null;
+  }
 
   fieldProps(name){
     const {
@@ -47,7 +102,7 @@ class Address extends Base{
   }
 
   form(){
-    const {Field, Form, Errors} = this;
+    const {Field, Form, Errors, SubmitButton} = this;
     return (
       <Container>
         <FieldWrapper>
@@ -73,6 +128,7 @@ class Address extends Base{
         <Errors>
           <FormFieldErrors name="street"/>
         </Errors>
+        <SubmitButton/>
       </Container>
     );
   }

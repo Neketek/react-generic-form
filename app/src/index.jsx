@@ -2,6 +2,7 @@ import React from "react";
 import styled, {ThemeProvider} from "styled-components";
 import Text from "src/component/input/text";
 import Name from "src/component/form/name";
+import Address from "src/component/form/address";
 import Profile from "src/component/form/profile";
 import theme from "src/common/theme/default";
 
@@ -13,6 +14,7 @@ const FormContainer = styled.div`
   padding: 4px;
   border: 2px solid;
   box-sizing: border-box;
+  margin-bottom: 10px;
 `
 
 const Container = styled.div`
@@ -32,6 +34,15 @@ class Root extends React.Component{
         <Container>
           <FormContainer>
             <Profile/>
+          </FormContainer>
+          <FormContainer>
+            <Name/>
+          </FormContainer>
+          <FormContainer>
+            <Address/>
+          </FormContainer>
+          <FormContainer>
+            <Address rule={{warning:{}, error:{}}} onSubmit={v=>console.log(v)}/>
           </FormContainer>
         </Container>
       </ThemeProvider>

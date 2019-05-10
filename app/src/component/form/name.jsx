@@ -116,10 +116,10 @@ Name.updateDefaultProps({
       // Each message builder function can use all params described below
       // to customize error message. Really usefull for localization
       first:[
-        Rule.string.not.empty(({name, value, params, state, props})=>`${name} name should not be empty.`)
+        Rule.string.empty().not().m(({name, value, params, state, props})=>`${name} name should not be empty.`)
       ],
       last:[
-        Rule.string.not.empty(()=>"Last name should not be empty.")
+        Rule.string.empty(()=>"Last name should not be empty.").not()
       ]
     },
     // warnings acts just like errors but don't affect validation

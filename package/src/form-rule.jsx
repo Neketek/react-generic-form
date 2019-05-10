@@ -10,12 +10,18 @@ const createRule=(test)=>{
   return (message, params)=>{
 
     const context = {
-      p:params
+      p:params,
+      e:true
     };
 
     const rule = (function (name, value, props={},state={}){
-      const {m:message, p:params={}} = this;
-      return !test({name, value, params, props, state})?message({name, value, props, state, params}):null;
+      const {m:message, p:params={}, e:expect} = this;
+      return !expect == test({name, value, params, props, state})?message({name, value, props, state, params}):null;
+    }).bind(context);
+
+    const not = (function(){
+      this.e=!this.e;
+      return rule;
     }).bind(context);
 
     const messageSetter = (function(m){
@@ -33,10 +39,15 @@ const createRule=(test)=>{
 
 
     rule.message=messageSetter;
+    rule.m=messageSetter;
     context.message=messageSetter;
 
     rule.params=paramsSetter;
+    rule.p=paramsSetter;
     context.params=paramsSetter;
+
+    rule.not=not;
+    context.not=not;
 
 
     if(message){

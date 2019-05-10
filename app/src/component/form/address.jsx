@@ -138,14 +138,14 @@ Address.updateDefaultProps({
   rule:{
     error:{
       country:[
-        Rule.string.not.empty(({props})=>"You must provide country!"),
+        Rule.string.empty(({props})=>"You must provide country!").not(),
         Rule.string.len.min(({params:{size}})=>`Country should be longer than or equal to ${size} chars`).params({size:2})
       ],
       city:[
-        Rule.string.not.empty(({props})=>"You must provide city!")
+        Rule.string.empty(({props})=>"You must provide city!").not()
       ],
       street:[
-        Rule.string.not.empty(({props})=>"You must provide street address!")
+        Rule.string.empty(({props})=>"You must provide street address!").not()
       ]
     }
   }
